@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon 3D Login</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
+    background: radial-gradient(circle at top, #172554, #030712 65%);
+    perspective: 1000px;
+}
+
+/* Animated background glow */
+.background {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: linear-gradient(135deg, #00f5ff, #7c3aed);
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.45;
+    animation: float 7s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+    from { transform: translate(-160px, -100px); }
+    to   { transform: translate(160px, 100px); }
+}
+
+/* 3D login card */
+.login-card {
+    position: relative;
+    z-index: 2;
+    width: min(90%, 390px);
+    padding: 40px 32px;
+    border: 1px solid rgba(0, 245, 255, 0.4);
+    border-radius: 24px;
+    background: rgba(10, 18, 40, 0.72);
+    backdrop-filter: blur(20px);
+    box-shadow:
+        0 0 35px rgba(0, 245, 255, 0.15),
+        inset 0 0 20px rgba(124, 58, 237, 0.08);
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+    font-size: 32px;
+    color: #00f5ff;
+    border: 1px solid #00f5ff;
+    box-shadow: 0 0 25px rgba(0, 245, 255, 0.35);
+    transform: translateZ(35px);
+}
+
+h1 {
+    text-align: center;
+    font-size: 29px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+    transform: translateZ(25px);
+}
+
+.subtitle {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    transform: translateZ(20px);
+}
+
+label {
+    display: block;
+    margin-bottom: 9px;
+    color: #cbd5e1;
+    font-size: 13px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    color: white;
+    font-size: 14px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #263852;
+    background: rgba(3, 7, 18, 0.8);
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #00f5ff;
+    box-shadow: 0 0 14px rgba(0, 245, 255, 0.2);
+}
+
+.password-box {
+    display: flex;
+    align-items: center;
+}
+
+.password-box input {
+    padding-right: 55px;
+}
+
+.toggle {
+    margin-left: -45px;
+    position: relative;
+    cursor: pointer;
+    color: #00f5ff;
+    font-size: 12px;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0 23px;
+    font-size: 12px;
+    color: #cbd5e1;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.remember input {
+    width: auto;
+    accent-color: #00f5ff;
+}
+
+a {
+    color: #00f5ff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    color: #030712;
+    background: linear-gradient(90deg, #00f5ff, #a78bfa);
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    transform: translateZ(25px);
+}
+
+button:hover {
+    box-shadow: 0 0 25px rgba(0, 245, 255, 0.5);
+    transform: translateZ(35px) scale(1.02);
+}
+
+.message {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 13px;
+    color: #67e8f9;
+    min-height: 16px;
+}
+
+.signup {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+.footer {
+    position: absolute;
+    bottom: 18px;
+    font-size: 11px;
+    color: #64748b;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 32px 23px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<main class="login-card" id="card">
+    <div class="logo">✦</div>
+
+    <h1>WELCOME BACK</h1>
+    <p class="subtitle">Enter the future. Access your account.</p>
+
+    <form id="loginForm">
+        <div class="input-group">
+            <label for="email">EMAIL ADDRESS</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="you@example.com"
+                autocomplete="username"
+                required
+            >
+        </div>
+
+        <div class="input-group">
+            <label for="password">PASSWORD</label>
+            <div class="password-box">
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    minlength="8"
+                    required
+                >
+                <span class="toggle" id="togglePassword">SHOW</span>
+            </div>
+        </div>
+
+        <div class="options">
+            <label class="remember">
+                <input type="checkbox" id="remember">
+                Remember me
+            </label>
+            <a href="#" id="forgotLink">Forgot password?</a>
+        </div>
+
+        <button type="submit" id="loginButton">
+            SIGN IN &nbsp; → 
+        </button>
+
+        <p class="message" id="message" role="status"></p>
+    </form>
+
+    <p class="signup">
+        New explorer? <a href="#" id="signupLink">Create account</a>
+    </p>
+</main>
+
+<div class="footer">N E X U S &nbsp; // &nbsp; SECURE ACCESS</div>
+
+<script>
+const card = document.getElementById("card");
+const form = document.getElementById("loginForm");
+const password = document.getElementById("password");
+const toggle = document.getElementById("togglePassword");
+const message = document.getElementById("message");
+
+// Interactive 3D tilt effect
+document.addEventListener("mousemove", (event) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+    }
+
+    const x = (window.innerWidth / 2 - event.clientX) / 45;
+    const y = (window.innerHeight / 2 - event.clientY) / 45;
+
+    card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
+});
+
+document.addEventListener("mouseleave", () => {
+    card.style.transform = "rotateY(0deg) rotateX(0deg)";
+});
+
+// Show or hide password
+toggle.addEventListener("click", () => {
+    const showing = password.type === "text";
+    password.type = showing ? "password" : "text";
+    toggle.textContent = showing ? "SHOW" : "HIDE";
+});
+
+// Demo-only login form
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    message.textContent =
+        "UI demo only. Connect a secure authentication backend to sign in.";
+});
+
+document.getElementById("forgotLink").addEventListener("click", (event) => {
+    event.preventDefault();
+    message.textContent = "Connect your password recovery service here.";
+});
+
+document.getElementById("signupLink").addEventListener("click", (event) => {
+    event.preventDefault();
+    message.textContent = "Connect your registration page here.";
+});
+</script>
+
+</body>
+</html>
